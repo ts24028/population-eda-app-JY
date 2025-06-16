@@ -256,8 +256,18 @@ class EDA:
         # 2. 결측치 & 중복
         with tabs[2]:
             st.header("🧼 품질 체크")
+
             st.subheader("결측값 개수")
-            st.bar_chart(df.isnull().sum())
+            missing = df.isnull().sum()
+            if missing.sum() == 0:
+                st.success("✅ 결측값이 없습니다.")
+            else:
+                fig, ax = plt.subplots()
+                missing[missing > 0].plot(kind='bar', ax=ax)
+                ax.set_ylabel("결측값 개수")
+                ax.set_title("Missing Values")
+                plt.xticks(rotation=45)
+                st.pyplot(fig)
 
             st.subheader("중복 행 개수")
             duplicates = df.duplicated().sum()
