@@ -212,7 +212,10 @@ class EDA:
         df = pd.read_csv(uploaded).replace('-', 0)
         for col in ['인구', '출생아수(명)', '사망자수(명)']:
             df[col] = pd.to_numeric(df[col], errors='coerce')
-
+        import matplotlib.font_manager as fm
+        plt.rcParams['font.family'] = 'Malgun Gothic'  # 또는 'NanumGothic', 'AppleGothic'
+        plt.rcParams['axes.unicode_minus'] = False
+        
         tabs = st.tabs([
             "0. 목적 & 절차",
             "1. 데이터 구조 & 통계",
